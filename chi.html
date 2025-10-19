@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lời chúc 20/10 💖</title>
+<style>
+  body {
+    background-color: #fff0f5;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+
+  h1 {
+    color: #d63384;
+    font-size: 1.8em;
+    z-index: 2;
+  }
+
+  .hint {
+    color: #888;
+    font-size: 1em;
+    margin-top: 10px;
+    animation: blink 1.5s infinite alternate;
+  }
+
+  @keyframes blink {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+  }
+
+  /* Tim bay */
+  .heart {
+    position: absolute;
+    color: #ff4d88;
+    font-size: 24px;
+    animation: float 5s infinite ease-in;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+  }
+
+  /* Ảnh bay quanh */
+  .flying-img {
+    position: absolute;
+    width: 200px; /* chỉnh to nhỏ ở đây */
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+  }
+</style>
+</head>
+<body>
+
+  <h1>
+      Em chúc chị thật nhiều luôn vui vẻ hạnh phúc<br>
+      tiền vào như nước sớm ngày lên đời điện thoại<br>
+    🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶
+  </h1>
+
+  <p class="hint">👉 Chạm vào màn hình để có bất ngờ:()</p>
+
+  <audio id="music" loop muted>
+    <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Tim bay ngẫu nhiên
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // Nhạc bật khi click
+    const music = document.getElementById("music");
+    document.addEventListener("click", () => {
+      music.muted = false;
+      music.play();
+    });
+
+    // --- Ảnh bay quanh màn hình ---
+    const imgSrc = "me.png"; // ảnh của bạn
+    const numImages = 10; // số lượng ảnh muốn xuất hiện
+
+    function createFlyingImage() {
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.classList.add("flying-img");
+      img.style.left = Math.random() * 100 + "vw";
+      img.style.top = Math.random() * 100 + "vh";
+      document.body.appendChild(img);
+
+      // Chuyển động ngẫu nhiên
+      const xMove = Math.random() * 200 - 100;
+      const yMove = Math.random() * 200 - 100;
+
+      img.animate(
+        [
+          { transform: "translate(0, 0) rotate(0deg)" },
+          { transform: `translate(${xMove}px, ${yMove}px) rotate(${Math.random() * 360}deg)` }
+        ],
+        {
+          duration: 3000 + Math.random() * 2000,
+          direction: "alternate",
+          iterations: Infinity,
+          easing: "ease-in-out"
+        }
+      );
+    }
+
+    for (let i = 0; i < numImages; i++) {
+      createFlyingImage();
+    }
+  </script>
+
+</body>
+</html>
