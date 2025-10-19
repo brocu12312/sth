@@ -22,7 +22,19 @@
     color: #d63384;
     font-size: 2em;
     margin: 20px;
-    z-index: 1;
+    z-index: 2;
+  }
+
+  .hint {
+    color: #888;
+    font-size: 1em;
+    margin-top: 10px;
+    animation: fade 2s infinite alternate;
+  }
+
+  @keyframes fade {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
   }
 
   .heart {
@@ -43,35 +55,49 @@
     }
   }
 
-  .hint {
-    color: #888;
-    font-size: 1em;
-    margin-top: 10px;
-    animation: fade 2s infinite alternate;
+  /* --- Hiệu ứng 4 linh thú --- */
+  .beast {
+    position: absolute;
+    font-size: 40px;
+    opacity: 0.8;
+    animation: fly 10s linear infinite;
   }
 
-  @keyframes fade {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
+  .dragon { top: 10%; left: -10%; animation-delay: 0s; }
+  .phoenix { top: 60%; right: -10%; animation-delay: 2s; }
+  .unicorn { bottom: 5%; left: -10%; animation-delay: 4s; }
+  .turtle { top: 30%; right: -10%; animation-delay: 6s; }
+
+  @keyframes fly {
+    0% { transform: translateX(0) rotate(0deg); opacity: 0.8; }
+    50% { transform: translateX(120vw) rotate(20deg); opacity: 1; }
+    100% { transform: translateX(-10vw) rotate(-20deg); opacity: 0.8; }
   }
+
 </style>
 </head>
 <body>
 
   <h1>
-    Chúc 20/10 này có thật nhiều sức khỏe,<br>
+    Chúc người đẹp 20/10 này có thật nhiều sức khỏe,<br>
     luôn vui vẻ và hạnh phúc,<br>
     sống lâu trăm tuổi con đàn cháu đống ❤️
   </h1>
 
-  <p class="hint">👉 Chạm vào màn hình để nghe nhạc 🎶</p>
+  <p class="hint">👉 Chạm vào màn hình để có bất ngờ:&#40;&#41;</p>
 
   <audio id="music" loop muted>
     <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Hiệu ứng linh thú -->
+  <div class="beast dragon">🐉</div>
+  <div class="beast phoenix">🕊️</div>
+  <div class="beast unicorn">🦄</div>
+  <div class="beast turtle">🐢</div>
+
   <script>
-    // Tạo hiệu ứng tim bay
+    // Tạo tim bay
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -83,7 +109,7 @@
     }
     setInterval(createHeart, 300);
 
-    // Phát nhạc khi click/chạm
+    // Bật nhạc khi click
     const music = document.getElementById("music");
     document.addEventListener("click", () => {
       music.muted = false;
