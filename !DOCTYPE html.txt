@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lời chúc gửi mẹ 20/10 💖</title>
+<style>
+  body {
+    background-color: #ffe6f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+h1 {
+color: #d63384;
+font-size: 2em;
+text-align: center;
+margin: 20px;
+}
+
+.heart {
+position: absolute;
+color: #ff4d88;
+font-size: 24px;
+animation: float 5s infinite ease-in;
+}
+
+@keyframes float {
+0% {
+transform: translateY(0) scale(1);
+opacity: 1;
+}
+100% {
+transform: translateY(-100vh) scale(1.5);
+opacity: 0;
+}
+} </style>
+
+</head>
+<body>
+  <h1>Con chúc mẹ 20/10 thật nhiều sức khỏe,<br>luôn vui vẻ và hạnh phúc.<br>Con yêu mẹ nhiều lắm ❤️</h1>
+  <audio autoplay loop>
+    <source src="https://www.tiktok.com/@pao_dang_suy/video/7561600308565085458" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
