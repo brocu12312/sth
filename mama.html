@@ -15,12 +15,14 @@
     height: 100vh;
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
+    position: relative;
   }
 
   h1 {
     color: #d63384;
     font-size: 1.8em;
     z-index: 2;
+    position: relative;
   }
 
   .hint {
@@ -28,6 +30,8 @@
     font-size: 1em;
     margin-top: 10px;
     animation: blink 1.5s infinite alternate;
+    position: relative;
+    z-index: 2;
   }
 
   @keyframes blink {
@@ -41,6 +45,7 @@
     color: #ff4d88;
     font-size: 24px;
     animation: float 5s infinite ease-in;
+    z-index: 1;
   }
 
   @keyframes float {
@@ -48,13 +53,13 @@
     100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
   }
 
-  /* Ảnh bay quanh */
+  /* Ảnh bay quanh mép màn hình */
   .flying-img {
     position: absolute;
-    width: 150px; /* chỉnh to nhỏ ở đây */
+    width: 150px;
     border-radius: 12px;
     pointer-events: none;
-    z-index: 10;
+    z-index: 1;
     box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
   }
 </style>
@@ -62,19 +67,18 @@
 <body>
 
   <h1>
-    Chúc người đẹp 20/10 thật nhiều niềm vui,<br>
-    luôn xinh đẹp và hạnh phúc!💐<br>
-    sống lâu trăm tuổi, con đàn cháu đống
+   Con chúc mẹ 20/10 thật nhiều sức khỏe,
+luôn vui vẻ và sức khỏe.
   </h1>
 
-  <p class="hint">👉 Chạm vào màn hình để có bất ngờ:()</p>
+  <p class="hint">💖  💖</p>
 
   <audio id="music" autoplay loop>
     <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Tim bay ngẫu nhiên
+    // --- Tim bay ngẫu nhiên ---
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -86,21 +90,31 @@
     }
     setInterval(createHeart, 300);
 
-    // --- Ảnh bay quanh màn hình ---
+    // --- Ảnh bay quanh mép màn hình ---
     const imgSrc = "me.png"; // ảnh của bạn
-    const numImages = 10; // số lượng ảnh muốn xuất hiện
+    const numImages = 10; // số lượng ảnh
 
     function createFlyingImage() {
       const img = document.createElement("img");
       img.src = imgSrc;
       img.classList.add("flying-img");
-      img.style.left = Math.random() * 100 + "vw";
-      img.style.top = Math.random() * 100 + "vh";
+
+      // Ảnh chỉ bay quanh mép màn hình
+      const side = Math.floor(Math.random() * 4);
+      let x, y;
+
+      if (side === 0) { x = Math.random() * 100; y = 0; }         // Trên
+      if (side === 1) { x = Math.random() * 100; y = 100; }       // Dưới
+      if (side === 2) { x = 0; y = Math.random() * 100; }         // Trái
+      if (side === 3) { x = 100; y = Math.random() * 100; }       // Phải
+
+      img.style.left = x + "vw";
+      img.style.top = y + "vh";
       document.body.appendChild(img);
 
-      // Chuyển động ngẫu nhiên
-      const xMove = Math.random() * 200 - 100;
-      const yMove = Math.random() * 200 - 100;
+      // Chuyển động nhẹ quanh vị trí mép
+      const xMove = Math.random() * 80 - 40;
+      const yMove = Math.random() * 80 - 40;
 
       img.animate(
         [
@@ -108,7 +122,7 @@
           { transform: `translate(${xMove}px, ${yMove}px) rotate(${Math.random() * 360}deg)` }
         ],
         {
-          duration: 3000 + Math.random() * 2000,
+          duration: 4000 + Math.random() * 2000,
           direction: "alternate",
           iterations: Infinity,
           easing: "ease-in-out"
