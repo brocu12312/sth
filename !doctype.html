@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trái tim chuyển động + Lời nhắn</title>
+  <style>
+    /* Reset cơ bản */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#ffeef0,#fff7f9);
+      font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+      color:#2b2b2b;
+      padding:20px;
+    }
+
+    /* Khung chính */
+    .card{
+      width:360px;max-width:95vw;background:rgba(255,255,255,0.8);
+      border-radius:18px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,0.08);
+      text-align:center;
+    }
+
+    /* Trái tim CSS */
+    .heart-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+    .heart{
+      width:120px;height:120px;position:relative;transform-origin:center center;
+      animation:pulse 1.6s ease-in-out infinite;
+    }
+    .heart:before,.heart:after{
+      content:"";position:absolute;left:50%;top:20%;width:60px;height:60px;background:#ff4567;border-radius:50%;transform:translateX(-50%);
+    }
+    .heart:before{left:25%;}
+    .heart:after{left:75%;}
+    .heart > .bottom{
+      position:absolute;left:0;right:0;top:40%;bottom:0;background:#ff4567;transform:rotate(45deg);border-radius:12px;transform-origin:center center;}
+
+    /* Hiệu ứng bóng nhẹ */
+    .heart-shadow{width:140px;height:12px;background:rgba(0,0,0,0.08);margin-top:6px;border-radius:50%;filter:blur(6px);}
+
+    /* Nhãn lời nhắn */
+    .message{
+      min-height:56px;display:flex;align-items:center;justify-content:center;padding:0 12px;font-weight:600;letter-spacing:0.2px;
+      transition:transform .45s cubic-bezier(.2,.9,.2,1),opacity .45s;opacity:1; font-size:16px;color:#3b2b2b
+    }
+
+    /* Mô phỏng text "to ra bé vào" (scale text) */
+    .message.animate-in{transform:scale(1.08);opacity:0}
+    .message.show{transform:scale(1);opacity:1}
+
+    /* Nút */
+    .controls{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    button{background:#ff6b88;border:none;color:white;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+    button.secondary{background:transparent;color:#ff6b88;border:2px solid rgba(255,107,136,0.18)}
+
+    /* Nhỏ cho màn hình nhỏ */
+    @media (max-width:400px){.heart{width:100px;height:100px}.card{padding:16px}}
+
+    /* Keyframes: trái tim phồng lên thu nhỏ */
+    @keyframes pulse{
+      0%{transform:scale(1)}
+      25%{transform:scale(1.06)}
+      50%{transform:scale(0.95)}
+      75%{transform:scale(1.03)}
+      100%{transform:scale(1)}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="heart-wrap">
+      <div class="heart" id="heart" aria-hidden="true">
+        <div class="bottom"></div>
+      </div>
+      <div class="heart-shadow"></div>
+    </div>
+
+    <div class="message" id="message">Chúc bạn một ngày thật ngọt ngào! ❤️</div>
+
+    <div class="controls">
+      <button id="prev">◀️ Trước</button>
+      <button id="pause">⏸️ Tạm dừng</button>
+      <button id="next">Sau ▶️</button>
+    </div>
+
+    <p style="margin-top:10px;font-size:12px;color:#6a6a6a">Bấm 'Tạm dừng' để dừng chu kỳ. Mở file .html trên trình duyệt để xem.</p>
+  </div>
+
+  <script>
+    // Dãy các lời nhắn (thay / thêm tuỳ ý)
+    const messages = [
+      'Chúc bạn một ngày thật ngọt ngào! ❤️',
+      'Gửi yêu thương đến bạn - luôn mỉm cười nhé 😊',
+      'Hy vọng hôm nay bạn gặp toàn điều may mắn 🌟',
+      'Cảm ơn vì bạn đã hiện diện trong cuộc sống này 💕',
+      'Một cái ôm ảo dành cho bạn 🤗',
+      'Chúc ngày 20/10 vui vẻ và ý nghĩa! 🎉'
+    ];
+
+    // Cài đặt
+    const intervalMs = 2500; // thời gian cho mỗi lời nhắn (ms)
+
+    // Tham chiếu phần tử
+    const msgEl = document.getElementById('message');
+    const heartEl = document.getElementById('heart');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const pauseBtn = document.getElementById('pause');
+
+    let idx = 0;
+    let timer = null;
+    let running = true;
+
+    function showMessage(i){
+      // Hiệu ứng thu/phóng chữ
+      msgEl.classList.remove('show');
+      // Thêm class animate-in để scale nhỏ trước khi hiện
+      msgEl.classList.add('animate-in');
+      // Tạm delay để trigger transition
+      setTimeout(()=>{
+        msgEl.textContent = messages[i];
+        // khi đổi nội dung, phồng lớn -> rồi về kích thước bình thường nhờ class show
+        msgEl.classList.remove('animate-in');
+        msgEl.classList.add('show');
+        // Đồng thời làm trái tim nhảy 1 nhịp bằng tạm tắt và bật lại animation
+        heartEl.style.animation = 'none';
+        // forcer reflow
+        void heartEl.offsetWidth;
+        heartEl.style.animation = '';
+      },120);
+    }
+
+    function next(){
+      idx = (idx + 1) % messages.length;
+      showMessage(idx);
+    }
+    function prev(){
+      idx = (idx - 1 + messages.length) % messages.length;
+      showMessage(idx);
+    }
+
+    function startTimer(){
+      if(timer) clearInterval(timer);
+      timer = setInterval(next, intervalMs);
+      running = true;
+      pauseBtn.textContent = '⏸️ Tạm dừng';
+    }
+    function stopTimer(){
+      if(timer) clearInterval(timer);
+      timer = null; running = false;
+      pauseBtn.textContent = '▶️ Tiếp tục';
+    }
+
+    // Nút bấm
+    prevBtn.addEventListener('click', ()=>{ prev(); if(running){stopTimer(); startTimer();} });
+    nextBtn.addEventListener('click', ()=>{ next(); if(running){stopTimer(); startTimer();} });
+    pauseBtn.addEventListener('click', ()=>{ running ? stopTimer() : startTimer(); });
+
+    // Bắt đầu
+    showMessage(0);
+    startTimer();
+
+    // Tùy chọn: nhấn trái tim để tạm dừng/tiếp tục
+    heartEl.style.cursor = 'pointer';
+    heartEl.addEventListener('click', ()=>{ running ? stopTimer() : startTimer(); });
+
+    // Cho phép thay đổi danh sách messages bằng console (debug)
+    // Ví dụ: messages.push('Lời nhắn mới');
+  </script>
+</body>
+</html>
