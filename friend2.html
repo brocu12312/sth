@@ -3,38 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lời chúc người đẹp 20/10 vui vẻ 💖💖💖</title>
+<title>Bí ẩn 20/10:()</title>
 <style>
   body {
-    background-color: #ffe6f2;
+    background-color: #fff0f5;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: 0;
-    overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Courier New', monospace;
     text-align: center;
   }
 
   h1 {
     color: #d63384;
-    font-size: 2em;
-    margin: 20px;
-    z-index: 3;
+    font-size: 1.8em;
+    z-index: 2;
   }
 
   .hint {
     color: #888;
     font-size: 1em;
     margin-top: 10px;
-    animation: fade 2s infinite alternate;
-    z-index: 3;
+    animation: blink 1.5s infinite alternate;
   }
 
-  @keyframes fade {
-    from { opacity: 0.5; }
+  @keyframes blink {
+    from { opacity: 0.6; }
     to { opacity: 1; }
   }
 
@@ -44,7 +41,6 @@
     color: #ff4d88;
     font-size: 24px;
     animation: float 5s infinite ease-in;
-    z-index: 1;
   }
 
   @keyframes float {
@@ -52,49 +48,28 @@
     100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
   }
 
-  /* Rồng ASCII */
-  .dragon-text {
+  /* Mặt ASCII bay quanh */
+  .ascii {
     position: absolute;
-    left: -80ch;
-    top: 30%;
-    font-family: monospace;
     white-space: pre;
-    color: #d63384;
-    animation: dragonFly 15s linear infinite;
-    z-index: 2;
-  }
-
-  @keyframes dragonFly {
-    0% { left: -80ch; transform: scale(1) rotate(0deg); opacity: 1; }
-    50% { left: 50vw; transform: scale(1.1) rotate(2deg); }
-    100% { left: 110vw; transform: scale(1) rotate(-2deg); opacity: 0.7; }
-  }
-
-  /* Phương bay lượn */
-  .phuong {
-    position: absolute;
-    font-size: 1.5em;
-    font-weight: bold;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.1em;
+    animation: orbit 20s linear infinite;
     color: #ff66b2;
-    animation: flyAround 10s ease-in-out infinite;
-    z-index: 2;
   }
 
-  @keyframes flyAround {
-    0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-    25%  { transform: translate(100px, -50px) rotate(10deg); }
-    50%  { transform: translate(-50px, -100px) rotate(-10deg); opacity: 0.8; }
-    75%  { transform: translate(-100px, 50px) rotate(5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  @keyframes orbit {
+    0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
   }
 </style>
 </head>
 <body>
 
   <h1>
-    Chúc 20/10 này có thật nhiều sức khỏe,<br>
-    luôn vui vẻ và hạnh phúc,<br>
-    sống lâu trăm tuổi con đàn cháu đống ❤️
+    Chúc bạn 20/10 thật nhiều niềm vui,<br>
+    luôn xinh đẹp và hạnh phúc! 💖
   </h1>
 
   <p class="hint">👉 Chạm vào màn hình để có bất ngờ:()</p>
@@ -103,31 +78,18 @@
     <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Rồng ASCII -->
-  <pre id="dragon" class="dragon-text">
-                       ___====-_  _-====___
-                 _--^^^#####//      \\#####^^^--_
-              _-^##########// (    ) \\##########^-_
-             -############//  |\^^/|  \\############-
-           _/############//   (@::@)   \\############\_
-          /#############((     \\//     ))#############\
-         -###############\\    (oo)    //###############-
-        -#################\\  / VV \  //#################-
-       -###################\\/      \//###################-
-      _#/|##########/\######(   /\   )######/\##########|\#_
-      |/ |#/\#/\#/\/  \#/\##\  |  |  /##/\#/  \/\#/\#/\| \|
-         |/  V  V  |/   V  \#\| |  | |/#/  V   \|  V  V  \|
-                        (  | |  | |  )
-                         ( | |  | | )
-                          (          )
-                           (        )
+  <!-- ASCII mặt bay -->
+  <pre class="ascii">
+   ██████████████
+  ██┏━━━━━━━━━━┓██
+  ██┃ ◉    ◉  ┃██
+  ██┃   <┈┈>  ┃██
+  ██┃ \_¯¯¯_/ ┃██
+   ██████████████
   </pre>
 
-  <!-- Phương bay -->
-  <div class="phuong" id="phuong">Phương 🌸</div>
-
   <script>
-    // Tim bay
+    // Tim bay ngẫu nhiên
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -139,16 +101,7 @@
     }
     setInterval(createHeart, 300);
 
-    // Phương di chuyển ngẫu nhiên
-    const phuong = document.getElementById("phuong");
-    function movePhuong() {
-      const x = Math.random() * window.innerWidth * 0.8;
-      const y = Math.random() * window.innerHeight * 0.6;
-      phuong.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 30 - 15}deg)`;
-    }
-    setInterval(movePhuong, 4000);
-
-    // Nhạc phát khi click
+    // Nhạc khi click
     const music = document.getElementById("music");
     document.addEventListener("click", () => {
       music.muted = false;
