@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bí ẩn 20/10:()</title>
+<title>Lời chúc 20/10 💖</title>
 <style>
   body {
     background-color: #fff0f5;
@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-family: 'Courier New', monospace;
+    font-family: 'Segoe UI', sans-serif;
     text-align: center;
   }
 
@@ -48,28 +48,22 @@
     100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
   }
 
-  /* Mặt ASCII bay quanh */
-  .ascii {
+  /* Ảnh nhảy quanh màn hình */
+  #jump {
     position: absolute;
-    white-space: pre;
-    font-family: monospace;
-    font-size: 12px;
-    line-height: 1.1em;
-    animation: orbit 20s linear infinite;
-    color: #ff66b2;
-  }
-
-  @keyframes orbit {
-    0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+    width: 120px;
+    border-radius: 12px;
+    transition: all 0.5s ease-out;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
   }
 </style>
 </head>
 <body>
 
   <h1>
-    Chúc bạn 20/10 thật nhiều niềm vui,<br>
-    luôn xinh đẹp và hạnh phúc! 💖
+    Chúc người đẹp 20/10 thật nhiều niềm vui,<br>
+    luôn xinh đẹp và hạnh phúc!💐<br>
+    sống lâu trăm tuổi, con đàn cháu đống
   </h1>
 
   <p class="hint">👉 Chạm vào màn hình để có bất ngờ:()</p>
@@ -78,15 +72,8 @@
     <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- ASCII mặt bay -->
-  <pre class="ascii">
-   ██████████████
-  ██┏━━━━━━━━━━┓██
-  ██┃ ◉    ◉  ┃██
-  ██┃   <┈┈>  ┃██
-  ██┃ \_¯¯¯_/ ┃██
-   ██████████████
-  </pre>
+  <!-- Ảnh của bạn -->
+  <img id="jump" src="me.png" alt="Ảnh bay quanh màn hình">
 
   <script>
     // Tim bay ngẫu nhiên
@@ -101,12 +88,23 @@
     }
     setInterval(createHeart, 300);
 
-    // Nhạc khi click
+    // Nhạc bật khi click
     const music = document.getElementById("music");
     document.addEventListener("click", () => {
       music.muted = false;
       music.play();
     });
+
+    // Ảnh nhảy quanh màn hình
+    const img = document.getElementById("jump");
+    function jump() {
+      const w = window.innerWidth - img.width;
+      const h = window.innerHeight - img.height;
+      img.style.left = Math.random() * w + "px";
+      img.style.top = Math.random() * h + "px";
+      img.style.transform = `rotate(${Math.random() * 360}deg)`;
+    }
+    setInterval(jump, 1000);
   </script>
 
 </body>
