@@ -15,24 +15,12 @@
     height: 100vh;
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
-    margin: 0;
-    padding: 20px;
-  }
-
-  .container {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(214, 51, 132, 0.3);
-    z-index: 10;
-    max-width: 90%;
   }
 
   h1 {
     color: #d63384;
     font-size: 1.8em;
-    margin-bottom: 20px;
-    line-height: 1.4;
+    z-index: 2;
   }
 
   .hint {
@@ -47,13 +35,12 @@
     to { opacity: 1; }
   }
 
+  /* Tim bay */
   .heart {
     position: absolute;
     color: #ff4d88;
     font-size: 24px;
     animation: float 5s infinite ease-in;
-    pointer-events: none;
-    z-index: 1;
   }
 
   @keyframes float {
@@ -61,50 +48,33 @@
     100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
   }
 
+  /* Ảnh bay quanh */
   .flying-img {
     position: absolute;
-    width: 150px;
+    width: 150px; /* chỉnh to nhỏ ở đây */
     border-radius: 12px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.8;
-  }
-
-  .music-control {
-    background: #d63384;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 25px;
-    margin-top: 20px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
     z-index: 10;
-  }
-
-  .music-control:hover {
-    background: #b82a6f;
-    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
   }
 </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Con chúc mẹ 20/10 thật nhiều sức khỏe,<br>luôn vui vẻ và hạnh phúc.</h1>
-    <p class="hint">👉 Nhấn nút bên dưới để nghe nhạc</p>
-    <button class="music-control" id="musicBtn">🎵 Bật nhạc</button>
-  </div>
+  <h1>
+    Chúc người đẹp 20/10 thật nhiều niềm vui,<br>
+    luôn xinh đẹp và hạnh phúc!💐<br>
+    sống lâu trăm tuổi, con đàn cháu đống
+  </h1>
 
-  <!-- Sử dụng URL nhạc trực tuyến -->
-  <audio id="music" loop>
-    <source src="https://assets.mixkit.co/music/preview/mixkit-happy-moments-87.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ phát nhạc.
+  <p class="hint">👉 Chạm vào màn hình để có bất ngờ:()</p>
+
+  <audio id="music" autoplay loop>
+    <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Tim bay
+    // Tim bay ngẫu nhiên
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -116,28 +86,9 @@
     }
     setInterval(createHeart, 300);
 
-    // Điều khiển nhạc
-    const music = document.getElementById("music");
-    const musicBtn = document.getElementById("musicBtn");
-    let isPlaying = false;
-    
-    musicBtn.addEventListener("click", () => {
-      if (isPlaying) {
-        music.pause();
-        musicBtn.textContent = "🎵 Bật nhạc";
-      } else {
-        music.play().catch(e => {
-          console.log("Lỗi phát nhạc:", e);
-          alert("Vui lòng nhấn nút 'Bật nhạc' một lần nữa để nghe nhạc.");
-        });
-        musicBtn.textContent = "⏸️ Tạm dừng";
-      }
-      isPlaying = !isPlaying;
-    });
-
-    // Ảnh bay
-    const imgSrc = "me.png"; // Đảm bảo tệp ảnh này tồn tại
-    const numImages = 6;
+    // --- Ảnh bay quanh màn hình ---
+    const imgSrc = "me.png"; // ảnh của bạn
+    const numImages = 10; // số lượng ảnh muốn xuất hiện
 
     function createFlyingImage() {
       const img = document.createElement("img");
@@ -147,8 +98,9 @@
       img.style.top = Math.random() * 100 + "vh";
       document.body.appendChild(img);
 
-      const xMove = Math.random() * 100 - 50;
-      const yMove = Math.random() * 100 - 50;
+      // Chuyển động ngẫu nhiên
+      const xMove = Math.random() * 200 - 100;
+      const yMove = Math.random() * 200 - 100;
 
       img.animate(
         [
