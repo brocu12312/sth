@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lời chúc người đẹp 20/10 vui vẻ 💖💖💖</title>
+<style>
+  body {
+    background-color: #ffe6f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+
+  h1 {
+    color: #d63384;
+    font-size: 2em;
+    margin: 20px;
+    z-index: 1;
+  }
+
+  .heart {
+    position: absolute;
+    color: #ff4d88;
+    font-size: 24px;
+    animation: float 5s infinite ease-in;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .hint {
+    color: #888;
+    font-size: 1em;
+    margin-top: 10px;
+    animation: fade 2s infinite alternate;
+  }
+
+  @keyframes fade {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+  <h1>
+    Chúc 20/10 này có thật nhiều sức khỏe,<br>
+    luôn vui vẻ và hạnh phúc,<br>
+    sống lâu trăm tuổi con đàn cháu đống ❤️
+  </h1>
+
+  <p class="hint">👉 Chạm vào màn hình để nghe nhạc 🎶</p>
+
+  <audio id="music" loop muted>
+    <source src="Rick-Roll-Sound-Effect.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Tạo hiệu ứng tim bay
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // Phát nhạc khi click/chạm
+    const music = document.getElementById("music");
+    document.addEventListener("click", () => {
+      music.muted = false;
+      music.play();
+    });
+  </script>
+
+</body>
+</html>
