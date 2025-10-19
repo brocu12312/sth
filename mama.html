@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lời chúc 20/10 💖</title>
+<style>
+  body {
+    background-color: #fff0f5;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(214, 51, 132, 0.3);
+    z-index: 10;
+    max-width: 90%;
+  }
+
+  h1 {
+    color: #d63384;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .hint {
+    color: #888;
+    font-size: 1em;
+    margin-top: 10px;
+    animation: blink 1.5s infinite alternate;
+  }
+
+  @keyframes blink {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+  }
+
+  .heart {
+    position: absolute;
+    color: #ff4d88;
+    font-size: 24px;
+    animation: float 5s infinite ease-in;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+  }
+
+  .flying-img {
+    position: absolute;
+    width: 150px;
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.8;
+  }
+
+  .music-control {
+    background: #d63384;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    margin-top: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .music-control:hover {
+    background: #b82a6f;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Con chúc mẹ 20/10 thật nhiều sức khỏe,<br>luôn vui vẻ và hạnh phúc.</h1>
+    <p class="hint">👉 Nhấn nút bên dưới để nghe nhạc</p>
+    <button class="music-control" id="musicBtn">🎵 Bật nhạc</button>
+  </div>
+
+  <!-- Sử dụng URL nhạc trực tuyến -->
+  <audio id="music" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-happy-moments-87.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+  </audio>
+
+  <script>
+    // Tim bay
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // Điều khiển nhạc
+    const music = document.getElementById("music");
+    const musicBtn = document.getElementById("musicBtn");
+    let isPlaying = false;
+    
+    musicBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        music.pause();
+        musicBtn.textContent = "🎵 Bật nhạc";
+      } else {
+        music.play().catch(e => {
+          console.log("Lỗi phát nhạc:", e);
+          alert("Vui lòng nhấn nút 'Bật nhạc' một lần nữa để nghe nhạc.");
+        });
+        musicBtn.textContent = "⏸️ Tạm dừng";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Ảnh bay
+    const imgSrc = "me.png"; // Đảm bảo tệp ảnh này tồn tại
+    const numImages = 6;
+
+    function createFlyingImage() {
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.classList.add("flying-img");
+      img.style.left = Math.random() * 100 + "vw";
+      img.style.top = Math.random() * 100 + "vh";
+      document.body.appendChild(img);
+
+      const xMove = Math.random() * 100 - 50;
+      const yMove = Math.random() * 100 - 50;
+
+      img.animate(
+        [
+          { transform: "translate(0, 0) rotate(0deg)" },
+          { transform: `translate(${xMove}px, ${yMove}px) rotate(${Math.random() * 360}deg)` }
+        ],
+        {
+          duration: 3000 + Math.random() * 2000,
+          direction: "alternate",
+          iterations: Infinity,
+          easing: "ease-in-out"
+        }
+      );
+    }
+
+    for (let i = 0; i < numImages; i++) {
+      createFlyingImage();
+    }
+  </script>
+
+</body>
+</html>
