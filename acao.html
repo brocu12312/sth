@@ -22,18 +22,25 @@
     text-shadow: 0 0 10px white;
     margin-bottom: 20px;
     z-index: 2;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
   }
 
   img {
     width: 280px;
-    animation: float 3s ease-in-out infinite;
+    animation: float 3s ease-in-out infinite, fadeIn 3s ease forwards;
     z-index: 2;
+    opacity: 0;
   }
 
   @keyframes float {
     0% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
   }
 
   .heart {
@@ -55,26 +62,32 @@
     }
   }
 
-  audio {
-    margin-top: 20px;
-    z-index: 3;
+  .caption {
+    position: absolute;
+    bottom: 20px;
+    font-size: 20px;
+    color: #ff3385;
+    font-family: 'Segoe UI', sans-serif;
+    animation: glow 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
   }
 </style>
 </head>
 <body>
 
-  <h2>Chúc  20/10 thật xinh đẹp và hạnh phúc 💐</h2>
-
-  <!-- Ảnh tay trái tim -->
+  <h2>Chúc bạn 20/10 thật xinh đẹp và hạnh phúc 💐</h2>
   <img src="acao2.jpg" alt="Tay trái tim đáng yêu">
+  <div class="caption">Tặng cậu 💞</div>
 
-  <!-- Khung nhạc: bạn thay file nhạc vào dòng src bên dưới -->
-  <audio controls autoplay loop>
-    <source src="phương.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ phát nhạc.
-  </audio>
+  <!-- Nhạc nền ẩn -->
+  <audio id="bgMusic" src="phương.mp3" loop hidden></audio>
 
   <script>
+    // Tạo hiệu ứng tim bay
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -86,6 +99,12 @@
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(createHeart, 200);
+
+    // Phát nhạc khi người nhận chạm/lướt trang (ẩn hoàn toàn)
+    const bgMusic = document.getElementById("bgMusic");
+    document.body.addEventListener("click", () => {
+      bgMusic.play().catch(()=>{});
+    }, { once: true });
   </script>
 
 </body>
