@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Lời chúc 20/10 💖</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #ffe6f2;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  h2 {
+    color: #ff3385;
+    font-family: 'Segoe UI', sans-serif;
+    text-shadow: 0 0 10px white;
+    margin-bottom: 20px;
+    z-index: 2;
+  }
+
+  img {
+    width: 280px;
+    animation: float 3s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+
+  .heart {
+    position: absolute;
+    color: #ff4d88;
+    font-size: 20px;
+    animation: fly 5s linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes fly {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-800px) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  audio {
+    margin-top: 20px;
+    z-index: 3;
+  }
+</style>
+</head>
+<body>
+
+  <h2>Chúc  20/10 thật xinh đẹp và hạnh phúc 💐</h2>
+
+  <!-- Ảnh tay trái tim -->
+  <img src="acao2.jpg" alt="Tay trái tim đáng yêu">
+
+  <!-- Khung nhạc: bạn thay file nhạc vào dòng src bên dưới -->
+  <audio controls autoplay loop>
+    <source src="phương.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+  </audio>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 200);
+  </script>
+
+</body>
+</html>
