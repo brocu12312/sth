@@ -3,109 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💖 Lời chúc 20/10 💖</title>
+<title>Chúc mừng 20/10 💖</title>
 <style>
   body {
-    margin: 0;
-    background-color: #ffe6f2;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    margin:0;
+    padding:0;
+    background-color:#ffe6f2;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    flex-direction:column;
+    font-family:'Segoe UI',sans-serif;
+    color:#ff3385;
   }
-
-  h2 {
-    color: #ff3385;
-    font-family: 'Segoe UI', sans-serif;
-    text-shadow: 0 0 10px white;
-    margin-bottom: 20px;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
+  .slide {
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    opacity:0;
+    transition: opacity 1s ease;
   }
-
+  .show {
+    opacity:1;
+  }
   img {
-    width: 280px;
-    animation: float 3s ease-in-out infinite, fadeIn 3s ease forwards;
-    z-index: 2;
-    opacity: 0;
+    max-width:80%;
+    animation: float 3s ease-in-out infinite;
   }
-
   @keyframes float {
     0% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0); }
   }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
+  .text-large {
+    font-size:2.5rem;
+    text-shadow:0 0 10px white;
+    margin-bottom:20px;
   }
-
+  .text-small {
+    font-size:1.2rem;
+    margin-top:15px;
+  }
   .heart {
-    position: absolute;
-    color: #ff4d88;
-    font-size: 20px;
+    position:absolute;
+    color:#ff4d88;
+    font-size:20px;
     animation: fly 5s linear infinite;
-    opacity: 0.8;
+    opacity:0.8;
   }
-
   @keyframes fly {
-    0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-800px) scale(1.5);
-      opacity: 0;
-    }
-  }
-
-  .caption {
-    position: absolute;
-    bottom: 20px;
-    font-size: 20px;
-    color: #ff3385;
-    font-family: 'Segoe UI', sans-serif;
-    animation: glow 1.5s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
+    0% { transform: translateY(0) scale(1); opacity:1; }
+    100% { transform: translateY(-800px) scale(1.5); opacity:0; }
   }
 </style>
 </head>
 <body>
 
-  <h2>Chúc bạn 20/10 thật xinh đẹp và hạnh phúc 💐</h2>
-  <img src="acao2.jpg" alt="Tay trái tim đáng yêu">
-  <div class="caption">Tặng cậu 💞</div>
+<div id="slide0" class="slide show">
+  <div class="text-large">Chúc mừng 20/10</div>
+</div>
 
-  <!-- Nhạc nền ẩn -->
-  <audio id="bgMusic" src="phương.mp3" loop hidden></audio>
+<div id="slide1" class="slide">
+  <img src="path/to/your/image1.jpg" alt="ảnh trái tim">
+  <div class="text-small">Tặng bạn một nụ cười thật tươi 💐</div>
+</div>
 
-  <script>
-    // Tạo hiệu ứng tim bay
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 20 + 15 + "px";
-      heart.style.animationDuration = 3 + Math.random() * 2 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }
-    setInterval(createHeart, 200);
+<div id="slide2" class="slide">
+  <img src="path/to/your/image2.jpg" alt="ảnh đẹp">
+  <div class="text-small">Luôn xinh đẹp, luôn rạng rỡ</div>
+</div>
 
-    // Phát nhạc khi người nhận chạm/lướt trang (ẩn hoàn toàn)
-    const bgMusic = document.getElementById("bgMusic");
-    document.body.addEventListener("click", () => {
-      bgMusic.play().catch(()=>{});
-    }, { once: true });
-  </script>
+<div id="slide3" class="slide">
+  <div class="text-large">Ngày 20/10 thật hạnh phúc!</div>
+</div>
+
+<audio id="bgMusic" src="path/to/your/music.mp3" loop hidden></audio>
+
+<script>
+  const bg = document.getElementById('bgMusic');
+  document.body.addEventListener('click',() => { bg.play().catch(()=>{}); }, { once:true });
+
+  function createHeart(){
+    const h = document.createElement('div');
+    h.classList.add('heart');
+    h.innerHTML = '💗';
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.fontSize = (Math.random()*20+15) + 'px';
+    h.style.animationDuration = (3+Math.random()*2) + 's';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  }
+  setInterval(createHeart,200);
+
+  const slides = ['slide0','slide1','slide2','slide3'];
+  let idx = 0;
+  function nextSlide(){
+    document.getElementById(slides[idx]).classList.remove('show');
+    idx++;
+    if(idx>=slides.length) return;
+    document.getElementById(slides[idx]).classList.add('show');
+    setTimeout(nextSlide, (idx===0?3000:5000));
+  }
+  setTimeout(nextSlide, 3000);
+</script>
 
 </body>
 </html>
